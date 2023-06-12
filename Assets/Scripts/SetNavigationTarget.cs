@@ -1,36 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 public class SetNavigationTarget : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField]
-    private Camera topDownCamera;
+    private TMP_Dropdown navigationTargetDropDown;
     [SerializeField]
-    private GameObject navTargetObject;
-    private NavMeshPath path;//current calculated path
-    private LineRenderer line; //linereanderer to display path
-    private bool lineToggle = true; //start and stop calculation
-    void Start()
+    private List<Target> navigationTargetObjects = new List<Target>();
+
+    private NavMeshPath path; // current calculated path
+    private LineRenderer line; // linerenderer to display path
+    private Vector3 targetPosition = Vector3.zero; // current target position
+
+    private bool lineToggle = false;
+
+    private void Start()
     {
-        path = new NavMeshPath(); //craeting new path
-        line = transform.GetComponent<LineRenderer>(); //getting line rendering component every time we touch the screen
+        path = new NavMeshPath();
+        line = transform.GetComponent<LineRenderer>();
+        line.enabled = lineToggle;
     }
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
+        if (lineToggle && targetPosition != Vector3.zero)
         {
-            lineToggle = !lineToggle;
-        }
-        if (lineToggle)
-        {
-            NavMesh.CalculatePath(transform.position, navTargetObject.transform.position, NavMesh.AllAreas, path);
+            NavMesh.CalculatePath(transform.position, targetPosition, NavMesh.AllAreas, path);
             line.positionCount = path.corners.Length;
             line.SetPositions(path.corners);
-            line.enabled = true;
         }
     }
+    public void ToogleVisibility()
+    {
+        lineToggle = !lineToggle;
+        line.enabled = lineToggle;
+    }
+
+    public void SetCurrentNavigationTarget(int selectedValue)
+    {
+        targetPosition = Vector3.zero;
+        string selectedText = navigationTargetDropDown.options[selectedValue].text;
+        Target currentTarget = navigationTargetObjects.Find(x =>
+        {
+            return x.Name.ToLower().Equals(selectedText.ToLower());
+        });
+        if (currentTarget != null)
+        {
+            targetPosition = currentTarget.PositionObject.transform.position;
+        }
+    }
+
+    
 }
