@@ -16,6 +16,7 @@ public class SetNavigationTarget : MonoBehaviour
     private LineRenderer line; // linerenderer to display path
     private Vector3 targetPosition = Vector3.zero; // current target position
 
+    private int currentFloor = 2;
     private bool lineToggle = false;
 
     private void Start()
@@ -32,13 +33,10 @@ public class SetNavigationTarget : MonoBehaviour
             NavMesh.CalculatePath(transform.position, targetPosition, NavMesh.AllAreas, path);
             line.positionCount = path.corners.Length;
             line.SetPositions(path.corners);
+            
         }
     }
-    public void ToogleVisibility()
-    {
-        lineToggle = !lineToggle;
-        line.enabled = lineToggle;
-    }
+  
 
     public void SetCurrentNavigationTarget(int selectedValue)
     {
@@ -50,9 +48,55 @@ public class SetNavigationTarget : MonoBehaviour
         });
         if (currentTarget != null)
         {
+            if (!line.enabled)
+            {
+                ToggleVisibility();
+            }
+
+            // check if floor is changing
+            // if yes, lead to elevator
+            // if no, navigate
             targetPosition = currentTarget.PositionObject.transform.position;
         }
     }
+    public void ToggleVisibility()
+    {
+        lineToggle = !lineToggle;
+        line.enabled = lineToggle;
+    }
+    public void ChangeActiveFloor(int floorNumber)
+    {
+        currentFloor = floorNumber;
+        SetNavigationTargetDropDownOptions(currentFloor);
+    }
 
-    
+   
+    private void SetNavigationTargetDropDownOptions(int floorNumber)
+    {
+        navigationTargetDropDown.ClearOptions();
+        navigationTargetDropDown.value = 0;
+
+        if (line.enabled)
+        {
+            ToggleVisibility();
+        }
+
+        if (floorNumber == 1)
+        {
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L101"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L102"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L103"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("HOD"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("Cabin"));
+        }
+        if (floorNumber == 2)
+        {
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("Project Room"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L201"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L202"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L203"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L204"));
+        }
+    }
+
 }
