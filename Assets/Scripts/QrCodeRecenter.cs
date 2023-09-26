@@ -27,7 +27,7 @@ public class QrCodeRecenter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SetQrCodeRecenterTarget("Floor0");
+            SetQrCodeRecenterTarget("Floor3");
         }
     }
 
@@ -116,6 +116,10 @@ public class QrCodeRecenter : MonoBehaviour
         else if (floorName == "floor0" || floorName == "Floor0")
         {
             snt.ChangeActiveFloor(0);
+        }
+        else if (floorName == "floor3" || floorName == "Floor3")
+        {
+            snt.ChangeActiveFloor(3);
         }
     }
 

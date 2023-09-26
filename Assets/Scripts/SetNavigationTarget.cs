@@ -97,6 +97,12 @@ public class SetNavigationTarget : MonoBehaviour
             navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L203"));
             navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L204"));
         }
+        else if (floorNumber == 3)
+        {
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("TeachersCabin"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("ExamDivison"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("ProjectDivison"));
+        }
         else if (floorNumber == 0)
         {
             navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("Library"));
