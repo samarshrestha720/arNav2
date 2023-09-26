@@ -100,8 +100,8 @@ public class SetNavigationTarget : MonoBehaviour
         else if (floorNumber == 3)
         {
             navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("TeachersCabin"));
-            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("ExamDivison"));
-            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("ProjectDivison"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("ExamDiv"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("ProjectDiv"));
         }
         else if (floorNumber == 0)
         {
