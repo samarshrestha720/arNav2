@@ -16,7 +16,7 @@ public class SetNavigationTarget : MonoBehaviour
     private LineRenderer line; // linerenderer to display path
     private Vector3 targetPosition = Vector3.zero; // current target position
 
-    private int currentFloor = 2;
+    static public int currentFloor = 1;
     private bool lineToggle = false;
 
     private void Start()
@@ -33,10 +33,10 @@ public class SetNavigationTarget : MonoBehaviour
             NavMesh.CalculatePath(transform.position, targetPosition, NavMesh.AllAreas, path);
             line.positionCount = path.corners.Length;
             line.SetPositions(path.corners);
-            
+
         }
     }
-  
+
 
     public void SetCurrentNavigationTarget(int selectedValue)
     {
@@ -70,7 +70,7 @@ public class SetNavigationTarget : MonoBehaviour
         SetNavigationTargetDropDownOptions(currentFloor);
     }
 
-   
+
     private void SetNavigationTargetDropDownOptions(int floorNumber)
     {
         navigationTargetDropDown.ClearOptions();

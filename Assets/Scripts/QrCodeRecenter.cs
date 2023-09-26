@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
@@ -19,6 +20,8 @@ public class QrCodeRecenter : MonoBehaviour
 
     private Texture2D cameraImageTexture;
     private IBarcodeReader reader = new BarcodeReader(); // create a barcode reader instance
+    public ContentController cc;
+    public SetNavigationTarget snt;
 
     private void Update()
     {
@@ -100,11 +103,33 @@ public class QrCodeRecenter : MonoBehaviour
         }
     }
 
+    private void assignFloors(string floorName)
+    {
+        if(floorName == "floor1"|| floorName=="Floor1")
+        {
+            snt.ChangeActiveFloor(1);
+        }
+        else if(floorName == "floor2" || floorName == "Floor2")
+        {
+            snt.ChangeActiveFloor(2);
+        }
+        else if (floorName == "floor0" || floorName == "Floor0")
+        {
+            snt.ChangeActiveFloor(0);
+        }
+    }
+
     private void SetQrCodeRecenterTarget(string targetText)
     {
         Target currentTarget = navigationTargetObjects.Find(x => x.Name.ToLower().Equals(targetText.ToLower()));
         if (currentTarget != null)
         {
+            //load content from cloud
+            //cc.LoadContent(targetText);
+
+            //change floor number
+            //assignFloors(targetText);
+
             // Reset position and rotation of ARSession
             session.Reset();
 
