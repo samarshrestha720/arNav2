@@ -16,7 +16,7 @@ public class SetNavigationTarget : MonoBehaviour
     private LineRenderer line; // linerenderer to display path
     private Vector3 targetPosition = Vector3.zero; // current target position
 
-    static public int currentFloor = 1;
+    public int currentFloor = 2;
     private bool lineToggle = false;
 
     private void Start()
@@ -89,13 +89,18 @@ public class SetNavigationTarget : MonoBehaviour
             navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("HOD"));
             navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("Cabin"));
         }
-        if (floorNumber == 2)
+        else if (floorNumber == 2)
         {
-            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("Project Room"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("ProjectRoom"));
             navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L201"));
             navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L202"));
             navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L203"));
             navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("L204"));
+        }
+        else if (floorNumber == 0)
+        {
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("Library"));
+            navigationTargetDropDown.options.Add(new TMP_Dropdown.OptionData("Upstairs"));
         }
     }
 

@@ -27,7 +27,7 @@ public class QrCodeRecenter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SetQrCodeRecenterTarget("Floor2");
+            SetQrCodeRecenterTarget("Floor0");
         }
     }
 
@@ -128,7 +128,7 @@ public class QrCodeRecenter : MonoBehaviour
             //cc.LoadContent(targetText);
 
             //change floor number
-            //assignFloors(targetText);
+            assignFloors(targetText);
 
             // Reset position and rotation of ARSession
             session.Reset();
